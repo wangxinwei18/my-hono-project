@@ -1,0 +1,7 @@
+#:schema node_modules/wrangler/config-schema.json
+compatibility_date = "2025-01-03"
+main = "src/index.js"
+name = "hono-env"
+
+account_id = "d43b8b995376752be4e89c53c33b83ec"
+workers_dev = true
