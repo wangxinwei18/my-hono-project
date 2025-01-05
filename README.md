@@ -1,3 +1,5 @@
+# Cloudflare Workers 敏感信息管理指南
+
 在 wrangler.toml 文件中，不能直接定义敏感信息，如密码、API 密钥等，因为 wrangler.toml 通常会提交到版本控制系统。
 取而代之，Cloudflare Workers 支持通过 wrangler secret 命令 来管理敏感信息，这些信息不会暴露在代码仓库中。以下是详细说明：
 
@@ -40,17 +42,17 @@ name = "my-worker"
 main = "src/index.js"
 compatibility_date = "2024-12-30"
 
-# 指定绑定变量
+指定绑定变量
 
 [vars]
 
-# 这些不会直接存储密钥，但会绑定 Secret
+这些不会直接存储密钥，但会绑定 Secret
 
 API_KEY = "secret" # 这里只是占位符，实际值来自 Secret 配置
 注意：
 wrangler secret put 的绑定会自动覆盖 vars 中相同名称的占位符值。
 
-5. 删除或更新 Secret
+删除或更新 Secret
    更新 Secret：直接重新运行 wrangler secret put API_KEY，输入新的值即可。
    删除 Secret：运行以下命令：
    bash
@@ -92,7 +94,7 @@ Enter the secret text you'd like assigned to the variable MY_SECRET:
 super-secure-api-key
 此时，Cloudflare 的 Workers 环境中会将 MY_SECRET 的值绑定为 super-secure-api-key。
 
-3. Worker 代码使用 Secret
+ Worker 代码使用 Secret
    在代码中，通过 env.MY_SECRET 来访问定义的实际值：
 
 javascript
@@ -204,7 +206,7 @@ Copy code
 wrangler dev
 Wrangler 会自动读取 .env 文件中的内容，并将这些变量作为环境变量注入到 Worker 中。
 
-3. 在 Worker 中使用 .env 中的变量
+在 Worker 中使用 .env 中的变量
    Worker 中通过 env 访问这些变量，示例代码：
 
 javascript
@@ -242,7 +244,7 @@ Copy code
 wrangler dev --env production
 Wrangler 会读取 .env.production 中的内容。
 
-6. 安全性注意事项
+安全性注意事项
    不要提交 .env 文件：确保将 .env 添加到 .gitignore 文件中，避免敏感信息被提交到版本控制系统。
    生产环境：生产环境的敏感信息应该通过 wrangler secret 提供，而不是依赖 .env 文件。
    总结
@@ -300,7 +302,7 @@ Copy code
 wrangler dev
 这将启动一个本地开发服务器，并自动加载 .env 文件中的环境变量。
 
-4. wrangler.toml 示例
+wrangler.toml 示例
    在 wrangler.toml 中，你可以声明一些常规配置：
 
 toml
@@ -311,7 +313,7 @@ compatibility_date = "2024-12-30"
 
 [vars]
 
-# 这里是常规的变量声明，实际的值会从 .env 或 wrangler secret 提供
+这里是常规的变量声明，实际的值会从 .env 或 wrangler secret 提供
 
 MY_SECRET = "secret" # 仅作为占位符，实际值通过 wrangler secret 注入
 wrangler.toml 中的 MY_SECRET 只是一个占位符，实际的值来自 wrangler secret 或 .env 文件中的环境变量。
