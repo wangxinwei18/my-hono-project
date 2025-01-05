@@ -12,10 +12,10 @@
    Copy code
    wrangler secret put API_KEY
    系统会提示输入值。例如：
-   vbnet
+
    Copy code
    Enter the secret text you'd like assigned to the variable API_KEY:
-   输入你的 API 密钥（例如 supersecretapikey），然后回车。
+   输入你的 API 密钥（例如 supersecret apikey），然后回车。
 3. 在 Worker 中使用 Secret
    Cloudflare 会将 Secret 注入为环境变量，你可以在代码中通过 env 使用它：
 
@@ -88,7 +88,6 @@ Copy code
 wrangler secret put MY_SECRET
 输入实际的值，例如：
 
-vbnet
 Copy code
 Enter the secret text you'd like assigned to the variable MY_SECRET:
 super-secure-api-key
@@ -141,9 +140,9 @@ wrangler secret list
 graphql
 Copy code
 ┌───────────────┬────────────────────────┐
-│ Name │ Type │
+│ Name          │ Type                   │
 ├───────────────┼────────────────────────┤
-│ MY_SECRET │ secret_text │
+│ MY_SECRET     │     secret_text        │
 └───────────────┴────────────────────────┘
 更新 Secret 如果需要更改 Secret 的值，可以直接重新设置：
 
@@ -226,7 +225,6 @@ const anotherSecret = env.ANOTHER_SECRET;
 };
 当你运行 wrangler dev 时，访问本地 Worker 将输出类似以下内容：
 
-vbnet
 Copy code
 MY_SECRET: super-secure-api-key, ANOTHER_SECRET: another-sensitive-value 4. 环境变量的优先级
 如果本地同时设置了 系统环境变量 和 .env 文件中的变量，Wrangler 优先使用系统环境变量。
